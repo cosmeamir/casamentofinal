@@ -11,10 +11,6 @@ const lightLogo = $.querySelector('.light_logo'),
 
 const loaderElem = $.querySelector('.loader')
 
-const SMenueSpans = $.querySelectorAll('#container-rsvp span'),
-      SMenue = $.querySelector('.S_Menue'),
-      containerRsvp = $.querySelector('#container-rsvp')
-
 // Loading window ---
 window.addEventListener('load',()=>{
   loaderElem.classList.add('hidden')
@@ -82,18 +78,6 @@ window.addEventListener("scroll", () => {
     backToTopContainer.classList.remove('show')
   }
 });
-
-// S-Menue__Rotate---
-SMenueSpans.forEach(item =>{
-  containerRsvp.addEventListener('mouseover', ()=>{
-    item.style.transform= "rotate(" +  360 + "deg)"
-    item.style.transition= "all .3s ease-in-out"
-  })
-  containerRsvp.addEventListener('mouseout', ()=>{
-    item.style.transform= "rotate(" + - 360 + "deg)"
-    item.style.transition= "all .3s ease-in-out"
-  })
-})
 
 // --- Music_Website ---
 const musicIcon = $.querySelector('.music-icon'),
