@@ -169,7 +169,7 @@ header{
 .nav-link span, .main-nav-link span{
     margin-left: 1rem;
 }
-.nav-link:nth-child(7){
+.nav-link:nth-child(8){
     border: none;
 }
 .nav-link:hover {
@@ -1152,6 +1152,186 @@ transition: all 300ms ease-in-out;
 .btn-viewAll:hover{
   color: #1A1A1A;
   background-color: #70A076;
+}
+
+/* ...Lista de Presentes... */
+.gift-list-section{
+  width: 100%;
+  background: #f5efee;
+  padding: 80px 20px;
+}
+.gift-list-container{
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.gift-list-container h2{
+  text-align: center;
+  font-family: "Playfair Display", serif;
+  color: #716867;
+  font-size: 2.2rem;
+  letter-spacing: 0.3rem;
+  text-transform: uppercase;
+}
+.gift-list-container > p{
+  text-align: center;
+  margin: 15px auto 40px;
+  color: #867b7a;
+  max-width: 740px;
+  line-height: 1.5;
+}
+.gift-list-grid{
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 24px;
+}
+.gift-card{
+  background: #f2eceb;
+  border: 1px solid #e6dedd;
+  border-radius: 18px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.gift-card-image{
+  background: #fff;
+  border-radius: 12px;
+  width: 100%;
+  aspect-ratio: 1/1;
+  object-fit: cover;
+}
+.gift-card h3{
+  font-family: "Playfair Display", serif;
+  font-size: 1.4rem;
+  color: #6f6665;
+  min-height: 70px;
+}
+.gift-card-price{
+  color: #7b7473;
+  font-size: 2rem;
+  font-family: "Playfair Display", serif;
+}
+.gift-offer-btn,
+.gift-submit-btn{
+  border: none;
+  background: #d0ada6;
+  color: #fff;
+  border-radius: 999px;
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 12px 14px;
+  cursor: pointer;
+}
+.gift-offer-btn:hover,
+.gift-submit-btn:hover{
+  background: #70A076;
+}
+.gift-modal-overlay{
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 16px;
+}
+.gift-modal-overlay.show{
+  display: flex;
+}
+.gift-modal{
+  background: #fff;
+  width: min(560px, 100%);
+  border-radius: 16px;
+  padding: 24px;
+  position: relative;
+  max-height: 95vh;
+  overflow-y: auto;
+}
+.gift-modal-close{
+  position: absolute;
+  right: 14px;
+  top: 10px;
+  border: none;
+  background: transparent;
+  color: #7f7574;
+  font-size: 2rem;
+  cursor: pointer;
+}
+.gift-modal h3{
+  margin-bottom: 14px;
+  color: #716867;
+  font-family: "Playfair Display", serif;
+  font-size: 1.8rem;
+}
+.gift-modal-product{
+  border: 1px solid #ece3e2;
+  border-radius: 12px;
+  padding: 14px;
+  display: flex;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+.gift-modal-product img{
+  width: 86px;
+  height: 86px;
+  border-radius: 10px;
+  object-fit: cover;
+}
+.gift-modal-product h4{
+  color: #5f5655;
+  margin-bottom: 6px;
+}
+.gift-transfer-box{
+  background: #f9f5f4;
+  border-radius: 12px;
+  padding: 14px;
+  margin-bottom: 16px;
+}
+.gift-transfer-box h4{
+  color: #6f6665;
+  margin-bottom: 8px;
+}
+.gift-transfer-box p{
+  color: #776d6c;
+  margin-bottom: 5px;
+}
+.gift-proof-form{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.gift-proof-form label{
+  color: #5f5655;
+  font-weight: 600;
+}
+#gift-proof{
+  border: 1px solid #ddd1cf;
+  border-radius: 8px;
+  padding: 10px;
+}
+#gift-proof-feedback{
+  min-height: 18px;
+  color: #b64949;
+}
+@media (max-width: 576px){
+  .gift-list-section{
+    padding: 60px 14px;
+  }
+  .gift-list-container h2{
+    font-size: 1.7rem;
+    letter-spacing: 0.18rem;
+  }
+  .gift-card h3{
+    font-size: 1.2rem;
+    min-height: auto;
+  }
+  .gift-card-price{
+    font-size: 1.6rem;
+  }
+  .gift-modal{
+    padding: 18px;
+  }
 }
 .container_cards{
   display: grid;

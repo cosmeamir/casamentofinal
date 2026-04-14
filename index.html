@@ -112,6 +112,7 @@
                     <a href="#ourGallery" class="main-nav-link"><span>Our Gallery</span></a>
                     <a href="#bestFriends" class="main-nav-link"><span>Best Friends</span></a>
                     <a href="#events" class="main-nav-link"><span>Events</span></a>
+                    <a href="#lista-presente" class="main-nav-link"><span>Lista de Presente</span></a>
                     <a href="#rsvp" class="main-nav-link"><span>RSVP</span></a>
                 </section>
 
@@ -128,6 +129,7 @@
                     <a href="#" class="nav-link"><span>Our Gallery</span></a>
                     <a href="#" class="nav-link"><span>Best Friends</span></a>
                     <a href="#" class="nav-link"><span>Events</span></a>
+                    <a href="#lista-presente" class="nav-link"><span>Lista de Presente</span></a>
                     <a href="#" class="nav-link"><span>RSVP</span></a>
                 </div>
 
@@ -585,7 +587,36 @@
         </div>
               
       </section>
+
+      <section id="lista-presente" class="gift-list-section">
+        <div class="gift-list-container">
+          <h2>Lista de Presentes</h2>
+          <p>Escolha um presente e clique em “Oferecer Presente” para receber os dados de transferência.</p>
+          <div class="gift-list-grid" id="gift-list-grid"></div>
+        </div>
+      </section>
     </main>
+
+    <div class="gift-modal-overlay" id="gift-modal-overlay" aria-hidden="true">
+      <div class="gift-modal" role="dialog" aria-modal="true" aria-labelledby="gift-modal-title">
+        <button type="button" class="gift-modal-close" id="gift-modal-close" aria-label="Fechar pop-up">&times;</button>
+        <h3 id="gift-modal-title">Oferecer Presente</h3>
+        <div class="gift-modal-product" id="gift-modal-product"></div>
+        <div class="gift-transfer-box">
+          <h4>Dados para transferência</h4>
+          <p><strong>Nome:</strong> EURAN COMERCIO PRESTACAO SERVICOS LDA</p>
+          <p><strong>Nº de Conta:</strong> 04343265410002</p>
+          <p><strong>IBAN:</strong> 004000004343265410241</p>
+          <p><strong>Referência:</strong> Presente de Casamento</p>
+        </div>
+        <form id="gift-proof-form" class="gift-proof-form">
+          <label for="gift-proof">Submeter comprovativo (PDF até 1MB)</label>
+          <input type="file" id="gift-proof" name="gift-proof" accept="application/pdf" required>
+          <small id="gift-proof-feedback"></small>
+          <button type="submit" class="gift-submit-btn">Enviar comprovativo</button>
+        </form>
+      </div>
+    </div>
 
     <footer id="rsvp" class="footer-joinWhitUs" style="width: 100%; ">
         <div class="container-rsvp">
