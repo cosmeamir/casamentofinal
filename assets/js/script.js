@@ -452,8 +452,11 @@ const giftModalOverlay = $.getElementById('gift-modal-overlay')
 const giftModalClose = $.getElementById('gift-modal-close')
 const giftModalProduct = $.getElementById('gift-modal-product')
 const giftProofForm = $.getElementById('gift-proof-form')
+const giftSenderNameInput = $.getElementById('gift-sender-name')
 const giftProofInput = $.getElementById('gift-proof')
 const giftProofFeedback = $.getElementById('gift-proof-feedback')
+const offeredStorageKey = 'giftRegistryOfferedItems'
+let selectedGiftId = null
 
 const giftProducts = [
   { name: 'SAMSUNG | Crystal UHD 55', price: 642400 },
@@ -485,26 +488,43 @@ function formatKz(value) {
 }
 
 function buildGiftImage(label) {
-  const shortLabel = label.length > 24 ? `${label.slice(0, 24)}...` : label
-  const svg = `<svg xmlns='http://www.w3.org/2000/svg' width='600' height='600'><defs><linearGradient id='g' x1='0' x2='1' y1='0' y2='1'><stop offset='0%' stop-color='#efe7e6'/><stop offset='100%' stop-color='#d8c3bf'/></linearGradient></defs><rect fill='url(#g)' width='100%' height='100%'/><text x='50%' y='50%' dominant-baseline='middle' text-anchor='middle' font-size='34' font-family='Arial' fill='#6a5f5e'>${shortLabel}</text></svg>`
+  const shortLabel = label.length > 20 ? `${label.slice(0, 20)}...` : label
+  const svg = `<svg xmlns='http://www.w3.org/2000/svg' width='600' height='600'><defs><linearGradient id='g' x1='0' x2='1' y1='0' y2='1'><stop offset='0%' stop-color='#efe7e6'/><stop offset='100%' stop-color='#e2d6d4'/></linearGradient></defs><rect fill='url(#g)' width='100%' height='100%'/><text x='50%' y='52%' dominant-baseline='middle' text-anchor='middle' font-size='26' font-family='Arial' fill='#7a7170'>${shortLabel}</text></svg>`
   return `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`
+}
+
+function getOfferedMap() {
+  try {
+    const saved = localStorage.getItem(offeredStorageKey)
+    return saved ? JSON.parse(saved) : {}
+  } catch (error) {
+    return {}
+  }
+}
+
+function setOfferedMap(data) {
+  localStorage.setItem(offeredStorageKey, JSON.stringify(data))
 }
 
 function renderGiftList() {
   if (!giftListGrid) return
+  const offeredMap = getOfferedMap()
 
   giftListGrid.innerHTML = giftProducts.map((item, index) => `
     <article class="gift-card">
       <img class="gift-card-image" src="${buildGiftImage(item.name)}" alt="${item.name}">
       <h3>${item.name}</h3>
       <p class="gift-card-price">${formatKz(item.price)}</p>
-      <button class="gift-offer-btn" data-gift-index="${index}" type="button">Oferecer Presente</button>
+      <button class="gift-offer-btn" data-gift-index="${index}" type="button" ${offeredMap[index] ? 'disabled' : ''}>
+        ${offeredMap[index] ? 'Presente Oferecido' : 'Oferecer Presente'}
+      </button>
     </article>
   `).join('')
 }
 
-function openGiftModal(item) {
+function openGiftModal(item, itemId) {
   if (!giftModalOverlay || !giftModalProduct) return
+  selectedGiftId = itemId
   giftModalProduct.innerHTML = `
     <img src="${buildGiftImage(item.name)}" alt="${item.name}">
     <div>
@@ -522,6 +542,7 @@ function closeGiftModal() {
   if (!giftModalOverlay) return
   giftModalOverlay.classList.remove('show')
   giftModalOverlay.setAttribute('aria-hidden', 'true')
+  selectedGiftId = null
   if (giftProofForm) giftProofForm.reset()
   if (giftProofFeedback) giftProofFeedback.textContent = ''
 }
@@ -535,8 +556,9 @@ if (giftListGrid) {
 
     const giftIndex = Number(button.dataset.giftIndex)
     const selectedGift = giftProducts[giftIndex]
-    if (selectedGift) {
-      openGiftModal(selectedGift)
+    const offeredMap = getOfferedMap()
+    if (selectedGift && !offeredMap[giftIndex]) {
+      openGiftModal(selectedGift, giftIndex)
     }
   })
 }
@@ -563,6 +585,23 @@ if (giftProofForm) {
   giftProofForm.addEventListener('submit', event => {
     event.preventDefault()
     if (!giftProofFeedback) return
+    if (!giftSenderNameInput || !giftSenderNameInput.value.trim()) {
+      giftProofFeedback.textContent = 'Informe o seu nome completo.'
+      return
+    }
+
+    if (selectedGiftId === null) {
+      giftProofFeedback.textContent = 'Selecione um presente para continuar.'
+      return
+    }
+
+    const offeredMap = getOfferedMap()
+    if (offeredMap[selectedGiftId]) {
+      giftProofFeedback.textContent = 'Este presente já foi oferecido.'
+      renderGiftList()
+      return
+    }
+
     if (!giftProofInput || !giftProofInput.files || !giftProofInput.files.length) {
       giftProofFeedback.textContent = 'Selecione um PDF antes de enviar.'
       return
@@ -584,6 +623,16 @@ if (giftProofForm) {
 
     giftProofFeedback.style.color = '#4e8a59'
     giftProofFeedback.textContent = 'Comprovativo enviado com sucesso!'
+    offeredMap[selectedGiftId] = true
+    setOfferedMap(offeredMap)
+    renderGiftList()
+
+    const buyerName = giftSenderNameInput.value.trim()
+    const giftName = giftProducts[selectedGiftId] ? giftProducts[selectedGiftId].name : 'Presente'
+    const waMessage = encodeURIComponent(`Olá! Novo comprovativo enviado.\nNome: ${buyerName}\nProduto: ${giftName}`)
+    const waLink = `https://wa.me/244931405838?text=${waMessage}`
+    window.open(waLink, '_blank')
+
     setTimeout(() => {
       giftProofFeedback.style.color = '#b64949'
       closeGiftModal()

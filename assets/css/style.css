@@ -1167,17 +1167,18 @@ transition: all 300ms ease-in-out;
 .gift-list-container h2{
   text-align: center;
   font-family: "Playfair Display", serif;
-  color: #716867;
-  font-size: 2.2rem;
-  letter-spacing: 0.3rem;
+  color: #5f5655;
+  font-size: 1.7rem;
+  letter-spacing: 0.14rem;
   text-transform: uppercase;
 }
 .gift-list-container > p{
   text-align: center;
   margin: 15px auto 40px;
-  color: #867b7a;
+  color: #7d7473;
   max-width: 740px;
   line-height: 1.5;
+  font-size: 0.95rem;
 }
 .gift-list-grid{
   display: grid;
@@ -1202,13 +1203,15 @@ transition: all 300ms ease-in-out;
 }
 .gift-card h3{
   font-family: "Playfair Display", serif;
-  font-size: 1.4rem;
-  color: #6f6665;
+  font-size: 1.05rem;
+  color: #665d5c;
   min-height: 70px;
+  line-height: 1.35;
+  font-weight: 600;
 }
 .gift-card-price{
   color: #7b7473;
-  font-size: 2rem;
+  font-size: 1.05rem;
   font-family: "Playfair Display", serif;
 }
 .gift-offer-btn,
@@ -1225,6 +1228,10 @@ transition: all 300ms ease-in-out;
 .gift-offer-btn:hover,
 .gift-submit-btn:hover{
   background: #70A076;
+}
+.gift-offer-btn[disabled]{
+  background: #bcb8b7;
+  cursor: not-allowed;
 }
 .gift-modal-overlay{
   position: fixed;
@@ -1262,7 +1269,7 @@ transition: all 300ms ease-in-out;
   margin-bottom: 14px;
   color: #716867;
   font-family: "Playfair Display", serif;
-  font-size: 1.8rem;
+  font-size: 1.4rem;
 }
 .gift-modal-product{
   border: 1px solid #ece3e2;
@@ -1281,6 +1288,7 @@ transition: all 300ms ease-in-out;
 .gift-modal-product h4{
   color: #5f5655;
   margin-bottom: 6px;
+  font-size: 1rem;
 }
 .gift-transfer-box{
   background: #f9f5f4;
@@ -1304,6 +1312,13 @@ transition: all 300ms ease-in-out;
 .gift-proof-form label{
   color: #5f5655;
   font-weight: 600;
+  font-size: 0.9rem;
+}
+#gift-sender-name{
+  border: 1px solid #ddd1cf;
+  border-radius: 8px;
+  padding: 10px;
+  color: #5f5655;
 }
 #gift-proof{
   border: 1px solid #ddd1cf;
@@ -1319,15 +1334,15 @@ transition: all 300ms ease-in-out;
     padding: 60px 14px;
   }
   .gift-list-container h2{
-    font-size: 1.7rem;
-    letter-spacing: 0.18rem;
+    font-size: 1.45rem;
+    letter-spacing: 0.12rem;
   }
   .gift-card h3{
-    font-size: 1.2rem;
+    font-size: 1rem;
     min-height: auto;
   }
   .gift-card-price{
-    font-size: 1.6rem;
+    font-size: 1rem;
   }
   .gift-modal{
     padding: 18px;
