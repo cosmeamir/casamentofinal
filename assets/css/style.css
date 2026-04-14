@@ -169,7 +169,7 @@ header{
 .nav-link span, .main-nav-link span{
     margin-left: 1rem;
 }
-.nav-link:nth-child(7){
+.nav-link:nth-child(8){
     border: none;
 }
 .nav-link:hover {
@@ -1152,6 +1152,86 @@ transition: all 300ms ease-in-out;
 .btn-viewAll:hover{
   color: #1A1A1A;
   background-color: #70A076;
+}
+
+/* ...Lista de Presentes... */
+.gift-list-section{
+  width: 100%;
+  background: #f5efee;
+  padding: 80px 20px;
+}
+.gift-list-container{
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.gift-list-container h2{
+  text-align: center;
+  font-family: "Playfair Display", serif;
+  color: #5f5655;
+  font-size: 1.7rem;
+  letter-spacing: 0.14rem;
+  text-transform: uppercase;
+}
+.gift-list-container > p{
+  text-align: center;
+  margin: 15px auto 40px;
+  color: #7d7473;
+  max-width: 740px;
+  line-height: 1.5;
+  font-size: 0.95rem;
+}
+.gift-submit-btn{
+  border: none;
+  background: #d0ada6;
+  color: #fff;
+  border-radius: 999px;
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 12px 14px;
+  cursor: pointer;
+}
+.gift-submit-btn:hover{
+  background: #70A076;
+}
+.gift-proof-form{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 640px;
+  margin: 0 auto;
+  background: #f2eceb;
+  border: 1px solid #e6dedd;
+  border-radius: 16px;
+  padding: 20px;
+}
+.gift-proof-form label{
+  color: #5f5655;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+#sender-name,
+#sender-message{
+  border: 1px solid #ddd1cf;
+  border-radius: 8px;
+  padding: 10px;
+  color: #5f5655;
+  font-family: inherit;
+}
+#message-feedback{
+  min-height: 18px;
+  color: #b64949;
+}
+@media (max-width: 576px){
+  .gift-list-section{
+    padding: 60px 14px;
+  }
+  .gift-list-container h2{
+    font-size: 1.45rem;
+    letter-spacing: 0.12rem;
+  }
+  .gift-proof-form{
+    padding: 16px;
+  }
 }
 .container_cards{
   display: grid;

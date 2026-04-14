@@ -446,4 +446,36 @@ arrowLeft.addEventListener('click',()=>{
 //   };
 // }(document));
 
+// --- Deixe um Recado ---
+const messageForm = $.getElementById('message-form')
+const senderNameInput = $.getElementById('sender-name')
+const senderMessageInput = $.getElementById('sender-message')
+const messageFeedback = $.getElementById('message-feedback')
 
+if (messageForm) {
+  messageForm.addEventListener('submit', event => {
+    event.preventDefault()
+    if (!messageFeedback) return
+
+    const senderName = senderNameInput ? senderNameInput.value.trim() : ''
+    const senderMessage = senderMessageInput ? senderMessageInput.value.trim() : ''
+
+    if (!senderName) {
+      messageFeedback.textContent = 'Por favor, informe o seu nome.'
+      return
+    }
+
+    if (!senderMessage) {
+      messageFeedback.textContent = 'Por favor, escreva uma mensagem.'
+      return
+    }
+
+    const waMessage = encodeURIComponent(`Olá! Recebeu um novo recado.\nNome: ${senderName}\nMensagem: ${senderMessage}`)
+    const waLink = `https://wa.me/244931405838?text=${waMessage}`
+
+    messageFeedback.style.color = '#4e8a59'
+    messageFeedback.textContent = 'Abrindo WhatsApp...'
+    window.open(waLink, '_blank')
+    messageForm.reset()
+  })
+}
