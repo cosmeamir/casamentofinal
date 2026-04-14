@@ -1,0 +1,5 @@
+<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 140'>
+  <rect width='1200' height='140' fill='none'/>
+  <g fill='#8fb38b'><circle cx='70' cy='70' r='38'/><circle cx='140' cy='70' r='38'/><circle cx='105' cy='35' r='38'/><circle cx='105' cy='105' r='38'/></g>
+  <g fill='#8fb38b' transform='translate(980,0)'><circle cx='70' cy='70' r='38'/><circle cx='140' cy='70' r='38'/><circle cx='105' cy='35' r='38'/><circle cx='105' cy='105' r='38'/></g>
+</svg>
