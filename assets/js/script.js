@@ -479,3 +479,74 @@ if (messageForm) {
     messageForm.reset()
   })
 }
+
+// --- Lista de Presentes ---
+const giftModalOverlay = $.getElementById('gift-modal-overlay')
+const giftModalClose = $.getElementById('gift-modal-close')
+const giftModalProduct = $.getElementById('gift-modal-product')
+const giftOfferButtons = $.querySelectorAll('.gift-offer-btn')
+const giftProofForm = $.getElementById('gift-proof-form')
+const giftProofInput = $.getElementById('gift-proof')
+const giftProofFeedback = $.getElementById('gift-proof-feedback')
+const giftSenderNameInput = $.getElementById('gift-sender-name')
+
+const closeGiftModal = () => {
+  if (!giftModalOverlay) return
+  giftModalOverlay.classList.remove('active')
+  giftModalOverlay.setAttribute('aria-hidden', 'true')
+}
+
+if (giftOfferButtons.length && giftModalOverlay && giftModalProduct) {
+  giftOfferButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      const product = button.dataset.product || 'Presente'
+      const price = button.dataset.price || ''
+      giftModalProduct.innerHTML = `<p><strong>Produto:</strong> ${product}</p><p><strong>Valor:</strong> ${price}</p>`
+      giftModalOverlay.classList.add('active')
+      giftModalOverlay.setAttribute('aria-hidden', 'false')
+    })
+  })
+}
+
+if (giftModalClose) {
+  giftModalClose.addEventListener('click', closeGiftModal)
+}
+
+if (giftModalOverlay) {
+  giftModalOverlay.addEventListener('click', event => {
+    if (event.target === giftModalOverlay) closeGiftModal()
+  })
+}
+
+if (giftProofForm && giftProofInput && giftProofFeedback) {
+  giftProofForm.addEventListener('submit', event => {
+    event.preventDefault()
+    const senderName = giftSenderNameInput ? giftSenderNameInput.value.trim() : ''
+    const proofFile = giftProofInput.files && giftProofInput.files[0]
+
+    if (!senderName) {
+      giftProofFeedback.textContent = 'Informe o seu nome completo.'
+      return
+    }
+
+    if (!proofFile) {
+      giftProofFeedback.textContent = 'Submeta um comprovativo em PDF.'
+      return
+    }
+
+    if (proofFile.type !== 'application/pdf') {
+      giftProofFeedback.textContent = 'Apenas ficheiros PDF são permitidos.'
+      return
+    }
+
+    if (proofFile.size > 1024 * 1024) {
+      giftProofFeedback.textContent = 'O ficheiro deve ter no máximo 1MB.'
+      return
+    }
+
+    giftProofFeedback.style.color = '#4e8a59'
+    giftProofFeedback.textContent = 'Comprovativo enviado com sucesso!'
+    giftProofForm.reset()
+    setTimeout(closeGiftModal, 1200)
+  })
+}
