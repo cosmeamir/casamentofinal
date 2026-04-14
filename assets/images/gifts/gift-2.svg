@@ -1,0 +1,6 @@
+<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 420'>
+  <defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='1'><stop stop-color='#5f7f72'/><stop offset='1' stop-color='#d6c6a5'/></linearGradient></defs>
+  <rect width='600' height='420' fill='url(#g)'/>
+  <text x='300' y='220' text-anchor='middle' font-size='48' fill='#fff' font-family='Arial'>Presente 2</text>
+  <text x='300' y='270' text-anchor='middle' font-size='24' fill='#fff' font-family='Arial'>Imagem local</text>
+</svg>
