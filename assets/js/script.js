@@ -17,13 +17,16 @@ window.addEventListener('load',()=>{
 })
 
 //Mobile-Navbar ---
-menu.addEventListener("click", () => {
-  navlistMobile.style.opacity ="1"
-  navlistMobile.classList.toggle("change");
-});
+if (menu && navlistMobile) {
+  menu.addEventListener("click", () => {
+    navlistMobile.style.opacity ="1"
+    navlistMobile.classList.toggle("change");
+  });
+}
 
 //--- Stickey-Menue ---
 window.addEventListener("scroll", () => {
+  if (!navbar) return
   if (window.pageYOffset > navbar.offsetTop) {
       navbar.classList.add("sticky");
 
@@ -72,9 +75,9 @@ window.addEventListener("scroll", () => {
   const whenWhereSection = $.querySelector('.when-where-section')
   const backToTopContainer = $.querySelector('.backtotop-container')
 
-  if (window.pageYOffset > whenWhereSection.offsetTop) {
+  if (whenWhereSection && backToTopContainer && window.pageYOffset > whenWhereSection.offsetTop) {
     backToTopContainer.classList.add('show')
-  }else{
+  }else if (backToTopContainer) {
     backToTopContainer.classList.remove('show')
   }
 });
@@ -84,15 +87,17 @@ const musicIcon = $.querySelector('.music-icon'),
       playerElem = $.querySelector('.player')
 let   flagDisplay = true
 
-musicIcon.addEventListener("click",()=>{
-  if (flagDisplay) {
-    playerElem.style.display = "block"
-    flagDisplay = false
-  }else{
-    playerElem.style.display = "none"
-    flagDisplay = true
-  }
-})
+if (musicIcon && playerElem) {
+  musicIcon.addEventListener("click",()=>{
+    if (flagDisplay) {
+      playerElem.style.display = "block"
+      flagDisplay = false
+    }else{
+      playerElem.style.display = "none"
+      flagDisplay = true
+    }
+  })
+}
 // Music:
 const title = $.getElementById("title"),
       artist = $.getElementById("artist"),
@@ -131,13 +136,15 @@ function pauseSong() {
   music.pause();
 }
 
-playBtn.addEventListener("click", function () {
-  if (isPlaying) {
-    pauseSong()
-  } else {
-    playSong()
-  }
-})
+if (playBtn && music) {
+  playBtn.addEventListener("click", function () {
+    if (isPlaying) {
+      pauseSong()
+    } else {
+      playSong()
+    }
+  })
+}
 function loadSong(song) {
   title.textContent = song.displayName;
   artist.textContent = song.artist;
@@ -163,7 +170,9 @@ function nextSong() {
   playSong();
 }
 
-loadSong(songs[songIndex]);
+if (title && artist && music) {
+  loadSong(songs[songIndex]);
+}
 
 function updateProgressBar(e) {
   if (isPlaying) {
@@ -194,76 +203,91 @@ function setProgressBar(e) {
   music.currentTime = (clickX / width) * duration;
 }
 
-music.addEventListener("ended", nextSong);
-music.addEventListener("timeupdate", updateProgressBar);
-progressContainer.addEventListener("click", setProgressBar);
+if (music) {
+  music.addEventListener("ended", nextSong);
+  music.addEventListener("timeupdate", updateProgressBar);
+}
+if (progressContainer) {
+  progressContainer.addEventListener("click", setProgressBar);
+}
 
 // --- banner-slider-header- --
 let lis = document.querySelectorAll(".liElem"),
     circle = document.querySelectorAll(".circle"),
     num = 1
 
-circle[0].style.backgroundColor = "transparent"
-lis[0].style.display = "block";
+if (circle.length && lis.length) {
+  circle[0].style.backgroundColor = "transparent"
+  lis[0].style.display = "block";
+}
 
 let classli = 0;
 circle.forEach(function(x){
-    x.setAttribute("num", classli);
-    classli++;
+  x.setAttribute("num", classli);
+  classli++;
 })
 circle.forEach(function(x){
-    x.addEventListener("click", function(){
-        let num = x.getAttribute("num");
-        clearInterval(inte);
-        lis.forEach(function(x){
-            x.style.display = "none";
-        });
-        circle.forEach(function(x){
-            x.style.backgroundColor = "#fff";
-        });
-        lis[num].style.display = "block";
-        circle[num].style.backgroundColor = "#70A076"
-    })
-})
-let inte = setInterval(function(){
-    if(num == lis.length){
-        num = 0;
-    }
+  x.addEventListener("click", function(){
+    let num = x.getAttribute("num");
+    clearInterval(inte);
     lis.forEach(function(x){
-        x.style.display = "none";
+      x.style.display = "none";
     });
     circle.forEach(function(x){
-        x.style.backgroundColor = "#9e9a9a";
-    })
+      x.style.backgroundColor = "#fff";
+    });
     lis[num].style.display = "block";
-
     circle[num].style.backgroundColor = "#70A076"
-    num++;
+  })
+})
+let inte = setInterval(function(){
+  if (!lis.length || !circle.length) return
+  if(num == lis.length){
+    num = 0;
+  }
+  lis.forEach(function(x){
+    x.style.display = "none";
+  });
+  circle.forEach(function(x){
+    x.style.backgroundColor = "#9e9a9a";
+  })
+  lis[num].style.display = "block";
+
+  circle[num].style.backgroundColor = "#70A076"
+  num++;
 },6000);   //3000
 
 // --- CountDown Wedding ---
 let endDate = new Date("Jan 20, 2023 00:00:00").getTime();
 let x = setInterval(function() {
+    const dayElem = $.querySelector('.countdown-day')
+    const hourElem = $.querySelector('.countdown-hour')
+    const minuteElem = $.querySelector('.countdown-minute')
+    const secondElem = $.querySelector('.countdown-second')
+    const countContainer = $.getElementById("countContainer")
+    if (!dayElem || !hourElem || !minuteElem || !secondElem || !countContainer) return
     let now = new Date().getTime();
     let distance = endDate - now;
     let days = Math.floor(distance / (1000 * 60 * 60 * 24));
     let hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
     let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
     let seconds = Math.floor((distance % (1000 * 60)) / 1000);
-    $.querySelector('.countdown-day').innerHTML = ("0" + days).slice(-2);  
-    $.querySelector('.countdown-hour').innerHTML = ("0" + hours).slice(-2);
-    $.querySelector('.countdown-minute').innerHTML = ("0" + minutes).slice(-2);
-    $.querySelector('.countdown-second').innerHTML = ("0" + seconds).slice(-2);
+    dayElem.innerHTML = ("0" + days).slice(-2);  
+    hourElem.innerHTML = ("0" + hours).slice(-2);
+    minuteElem.innerHTML = ("0" + minutes).slice(-2);
+    secondElem.innerHTML = ("0" + seconds).slice(-2);
     if (distance < 0) {
         clearInterval(x);
-        $.getElementById("countContainer").innerHTML = "EXPIRED";
+        countContainer.innerHTML = "EXPIRED";
     }
 }, 1000);
 
  
 /* Slider-best_Momets */
 let slideIndexTow = 0;
-showSlidesBestMoment();
+if ($.getElementsByClassName("mySlides-bestMoments").length && $.getElementsByClassName("dot-bestMoments").length) {
+  showSlidesBestMoment();
+}
 
 function showSlidesBestMoment() {
   let j,
@@ -290,22 +314,23 @@ const groomsMenTab = document.querySelector('.groomsMen-tab'),
 const groomsMenForm = document.querySelector('.groomsMen-form'),
       brideMaidsForm = document.querySelector('.brideMaids-form')
 
+if (groomsMenTab && brideMaidsTab && groomsMenForm && brideMaidsForm) {
   groomsMenTab.addEventListener('click',e =>{
-  groomsMenTab.style.borderBottomColor="#70A076"
-  brideMaidsTab.style.borderBottomColor="transparent"
- 
-  brideMaidsForm.style.display = 'none'
-  groomsMenForm.style.display = 'block'
-  groomsMenForm.style.display = 'flex'
-
-})
-brideMaidsTab.addEventListener('click',e =>{
-  groomsMenTab.style.borderBottomColor="transparent"
-  brideMaidsTab.style.borderBottomColor="#70A076"
-  brideMaidsForm.style.display = 'block'
-  brideMaidsForm.style.display = 'flex'
-  groomsMenForm.style.display    = 'none'
-})
+    groomsMenTab.style.borderBottomColor="#70A076"
+    brideMaidsTab.style.borderBottomColor="transparent"
+  
+    brideMaidsForm.style.display = 'none'
+    groomsMenForm.style.display = 'block'
+    groomsMenForm.style.display = 'flex'
+  })
+  brideMaidsTab.addEventListener('click',e =>{
+    groomsMenTab.style.borderBottomColor="transparent"
+    brideMaidsTab.style.borderBottomColor="#70A076"
+    brideMaidsForm.style.display = 'block'
+    brideMaidsForm.style.display = 'flex'
+    groomsMenForm.style.display    = 'none'
+  })
+}
 
 // --- section textSlider ---
 let containerTextSlider = $.querySelectorAll('.container-textSlider p'),
@@ -330,8 +355,10 @@ let lisEvent = $.querySelectorAll(".liElem-event"),
     circleEvent = $.querySelectorAll(".circle-event"),
      numEvent = 1;
 
-circleEvent[0].style.backgroundColor = "transparent"
-lisEvent[0].style.display = "block";
+if (circleEvent.length && lisEvent.length) {
+  circleEvent[0].style.backgroundColor = "transparent"
+  lisEvent[0].style.display = "block";
+}
 
 let classliEvent = 0;
 circleEvent.forEach(function(x){
@@ -373,7 +400,8 @@ let inteEvent = setInterval(function(){
 let arrowLeft= $.querySelector('.fa-chevron-circle-left')
 let arrowRight= $.querySelector('.fa-chevron-circle-right')
 
-arrowRight.addEventListener('click',()=>{
+if (arrowRight) {
+  arrowRight.addEventListener('click',()=>{
   // console.log("right",numEvent)
     clearInterval(inteEvent);
     lisEvent.forEach(function(x){
@@ -393,8 +421,10 @@ arrowRight.addEventListener('click',()=>{
       circleEvent[numEvent].style.backgroundColor = "#70A076"
     }
     numEvent++
-})
-arrowLeft.addEventListener('click',()=>{
+  })
+}
+if (arrowLeft) {
+  arrowLeft.addEventListener('click',()=>{
   clearInterval(inteEvent);
   lisEvent.forEach(function(x){
       x.style.display = "none";
@@ -415,7 +445,8 @@ arrowLeft.addEventListener('click',()=>{
       lisEvent[numEvent].style.display = "block";
       circleEvent[numEvent].style.backgroundColor = "#70A076"
   }
-})
+  })
+}
 
 // (function (d) {
 //   var w = d.documentElement.offsetWidth,
