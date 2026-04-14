@@ -112,7 +112,7 @@
                     <a href="#ourGallery" class="main-nav-link"><span>Our Gallery</span></a>
                     <a href="#bestFriends" class="main-nav-link"><span>Best Friends</span></a>
                     <a href="#events" class="main-nav-link"><span>Events</span></a>
-                    <a href="#lista-presente" class="main-nav-link"><span>Lista de Presente</span></a>
+                    <a href="#recado" class="main-nav-link"><span>Deixe um recado</span></a>
                     <a href="#rsvp" class="main-nav-link"><span>RSVP</span></a>
                 </section>
 
@@ -129,7 +129,7 @@
                     <a href="#" class="nav-link"><span>Our Gallery</span></a>
                     <a href="#" class="nav-link"><span>Best Friends</span></a>
                     <a href="#" class="nav-link"><span>Events</span></a>
-                    <a href="#lista-presente" class="nav-link"><span>Lista de Presente</span></a>
+                    <a href="#recado" class="nav-link"><span>Deixe um recado</span></a>
                     <a href="#" class="nav-link"><span>RSVP</span></a>
                 </div>
 
@@ -588,11 +588,20 @@
               
       </section>
 
-      <section id="lista-presente" class="gift-list-section">
+      <section id="recado" class="gift-list-section">
         <div class="gift-list-container">
-          <h2>Lista de Presentes</h2>
-          <p>Escolha um presente e clique em “Oferecer Presente” para receber os dados de transferência.</p>
-          <div class="gift-list-grid" id="gift-list-grid"></div>
+          <h2>Deixe um recado</h2>
+          <p>Escreva uma mensagem especial para os noivos. Vamos enviar seu recado para o WhatsApp.</p>
+          <form id="message-form" class="gift-proof-form recado-form">
+            <label for="sender-name">Seu nome</label>
+            <input type="text" id="sender-name" name="sender-name" placeholder="Digite o seu nome" required>
+
+            <label for="sender-message">Sua mensagem</label>
+            <textarea id="sender-message" name="sender-message" rows="5" placeholder="Escreva seu recado aqui..." required></textarea>
+            <small id="message-feedback"></small>
+
+            <button type="submit" class="gift-submit-btn">Enviar recado no WhatsApp</button>
+          </form>
         </div>
       </section>
     </main>
