@@ -11,10 +11,6 @@ const lightLogo = $.querySelector('.light_logo'),
 
 const loaderElem = $.querySelector('.loader')
 
-const SMenueSpans = $.querySelectorAll('#container-rsvp span'),
-      SMenue = $.querySelector('.S_Menue'),
-      containerRsvp = $.querySelector('#container-rsvp')
-
 // Loading window ---
 window.addEventListener('load',()=>{
   loaderElem.classList.add('hidden')
@@ -82,18 +78,6 @@ window.addEventListener("scroll", () => {
     backToTopContainer.classList.remove('show')
   }
 });
-
-// S-Menue__Rotate---
-SMenueSpans.forEach(item =>{
-  containerRsvp.addEventListener('mouseover', ()=>{
-    item.style.transform= "rotate(" +  360 + "deg)"
-    item.style.transition= "all .3s ease-in-out"
-  })
-  containerRsvp.addEventListener('mouseout', ()=>{
-    item.style.transform= "rotate(" + - 360 + "deg)"
-    item.style.transition= "all .3s ease-in-out"
-  })
-})
 
 // --- Music_Website ---
 const musicIcon = $.querySelector('.music-icon'),
@@ -477,5 +461,117 @@ if (messageForm) {
     messageFeedback.textContent = 'Abrindo WhatsApp...'
     window.open(waLink, '_blank')
     messageForm.reset()
+  })
+}
+
+// --- Lista de Presentes ---
+const giftShopGrid = $.getElementById('gift-shop-grid')
+const giftModalOverlay = $.getElementById('gift-modal-overlay')
+const giftModalClose = $.getElementById('gift-modal-close')
+const giftModalProduct = $.getElementById('gift-modal-product')
+const giftProofForm = $.getElementById('gift-proof-form')
+const giftProofInput = $.getElementById('gift-proof')
+const giftProofFeedback = $.getElementById('gift-proof-feedback')
+const giftSenderNameInput = $.getElementById('gift-sender-name')
+const giftProducts = [
+  { name: 'SAMSUNG | Crystal UHD 55', price: 642400 },
+  { name: 'MIDEA | Arca 142L', price: 195000 },
+  { name: 'MIDEA | AC SPLIT 9000Btu', price: 270500 },
+  { name: 'CLEA | Máquina de Pipoca', price: 20400 },
+  { name: 'Black + Decker | Air Fryer 4.5L', price: 97200 },
+  { name: 'Black + Decker | Picador de Alimentos', price: 34700 },
+  { name: 'ALMOFADA AREIA GRAVADA 45X45', price: 18745 },
+  { name: 'ALMOFADA COSTA DE LINHO 45X45', price: 14995 },
+  { name: 'BALDE CHAMPANHE INOX 184.99', price: 42900 },
+  { name: 'CAIXA CHAS ACACIA VIDRO 26,5X9X9 NATURAL', price: 24900 },
+  { name: 'DECANTADOR VIDRO 18,7X18,7X22 1200ML', price: 22900 },
+  { name: 'Aspirador sem saco 600w 2.4l preto', price: 325965 },
+  { name: 'TV 65" A PRO 2025', price: 925840 },
+  { name: 'Barra de Som Stage Air V2 2.0 Preto', price: 57135 },
+  { name: 'Balança WC MI smart S400', price: 29755 },
+  { name: 'Batedeira 375w Com Taça De 3L Branco', price: 78450 },
+  { name: 'Impressora Deskjet E-AIO 2976 ADV. (7.5) WIFI', price: 61815 },
+  { name: 'Arca Vertical 151L Branca', price: 209990 },
+  { name: 'Ar Condicionado 12000 Btu Split Inverter (In+Out)', price: 390990 },
+  { name: 'Frois', price: 32900 },
+  { name: 'Chaudry', price: 23800 },
+  { name: 'Neres', price: 36000 }
+]
+
+const formatGiftPrice = value => `${Number(value).toLocaleString('pt-PT')} Kz`
+const escapeAttr = value => String(value).replace(/"/g, '&quot;')
+
+if (giftShopGrid) {
+  const cardsMarkup = giftProducts.map((product, index) => `
+    <article class="gift-shop-card">
+      <img src="https://picsum.photos/seed/casamento-${index + 1}/600/420" alt="${escapeAttr(product.name)}">
+      <div class="gift-shop-info">
+        <h3>${product.name}</h3>
+        <p class="gift-price">${formatGiftPrice(product.price)}</p>
+        <button type="button" class="gift-offer-btn" data-product="${escapeAttr(product.name)}" data-price="${formatGiftPrice(product.price)}">Oferecer Presente</button>
+      </div>
+    </article>
+  `).join('')
+  giftShopGrid.innerHTML = cardsMarkup
+}
+
+const closeGiftModal = () => {
+  if (!giftModalOverlay) return
+  giftModalOverlay.classList.remove('active')
+  giftModalOverlay.setAttribute('aria-hidden', 'true')
+}
+
+if (giftShopGrid && giftModalOverlay && giftModalProduct) {
+  giftShopGrid.addEventListener('click', event => {
+    const button = event.target.closest('.gift-offer-btn')
+    if (!button) return
+    const product = button.dataset.product || 'Presente'
+    const price = button.dataset.price || ''
+    giftModalProduct.innerHTML = `<p><strong>Produto:</strong> ${product}</p><p><strong>Valor:</strong> ${price}</p>`
+    giftModalOverlay.classList.add('active')
+    giftModalOverlay.setAttribute('aria-hidden', 'false')
+  })
+}
+
+if (giftModalClose) {
+  giftModalClose.addEventListener('click', closeGiftModal)
+}
+
+if (giftModalOverlay) {
+  giftModalOverlay.addEventListener('click', event => {
+    if (event.target === giftModalOverlay) closeGiftModal()
+  })
+}
+
+if (giftProofForm && giftProofInput && giftProofFeedback) {
+  giftProofForm.addEventListener('submit', event => {
+    event.preventDefault()
+    const senderName = giftSenderNameInput ? giftSenderNameInput.value.trim() : ''
+    const proofFile = giftProofInput.files && giftProofInput.files[0]
+
+    if (!senderName) {
+      giftProofFeedback.textContent = 'Informe o seu nome completo.'
+      return
+    }
+
+    if (!proofFile) {
+      giftProofFeedback.textContent = 'Submeta um comprovativo em PDF.'
+      return
+    }
+
+    if (proofFile.type !== 'application/pdf') {
+      giftProofFeedback.textContent = 'Apenas ficheiros PDF são permitidos.'
+      return
+    }
+
+    if (proofFile.size > 1024 * 1024) {
+      giftProofFeedback.textContent = 'O ficheiro deve ter no máximo 1MB.'
+      return
+    }
+
+    giftProofFeedback.style.color = '#4e8a59'
+    giftProofFeedback.textContent = 'Comprovativo enviado com sucesso!'
+    giftProofForm.reset()
+    setTimeout(closeGiftModal, 1200)
   })
 }
