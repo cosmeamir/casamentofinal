@@ -606,6 +606,29 @@
       </section>
     </main>
 
+    <div class="gift-modal-overlay" id="gift-modal-overlay" aria-hidden="true">
+      <div class="gift-modal" role="dialog" aria-modal="true" aria-labelledby="gift-modal-title">
+        <button type="button" class="gift-modal-close" id="gift-modal-close" aria-label="Fechar pop-up">&times;</button>
+        <h3 id="gift-modal-title">Oferecer Presente</h3>
+        <div class="gift-modal-product" id="gift-modal-product"></div>
+        <div class="gift-transfer-box">
+          <h4>Dados para transferência</h4>
+          <p><strong>Nome:</strong> EURAN COMERCIO PRESTACAO SERVICOS LDA</p>
+          <p><strong>Nº de Conta:</strong> 04343265410002</p>
+          <p><strong>IBAN:</strong> 004000004343265410241</p>
+          <p><strong>Referência:</strong> Presente de Casamento</p>
+        </div>
+        <form id="gift-proof-form" class="gift-proof-form">
+          <label for="gift-sender-name">Seu nome completo</label>
+          <input type="text" id="gift-sender-name" name="gift-sender-name" placeholder="Digite o seu nome" required>
+          <label for="gift-proof">Submeter comprovativo (PDF até 1MB)</label>
+          <input type="file" id="gift-proof" name="gift-proof" accept="application/pdf" required>
+          <small id="gift-proof-feedback"></small>
+          <button type="submit" class="gift-submit-btn">Enviar comprovativo</button>
+        </form>
+      </div>
+    </div>
+
     <footer id="rsvp" class="footer-joinWhitUs" style="width: 100%; ">
         <div class="container-rsvp">
             <div class="rsvp-titles">
