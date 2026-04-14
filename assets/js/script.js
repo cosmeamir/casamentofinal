@@ -446,4 +446,147 @@ arrowLeft.addEventListener('click',()=>{
 //   };
 // }(document));
 
+// --- Lista de Presentes ---
+const giftListGrid = $.getElementById('gift-list-grid')
+const giftModalOverlay = $.getElementById('gift-modal-overlay')
+const giftModalClose = $.getElementById('gift-modal-close')
+const giftModalProduct = $.getElementById('gift-modal-product')
+const giftProofForm = $.getElementById('gift-proof-form')
+const giftProofInput = $.getElementById('gift-proof')
+const giftProofFeedback = $.getElementById('gift-proof-feedback')
 
+const giftProducts = [
+  { name: 'SAMSUNG | Crystal UHD 55', price: 642400 },
+  { name: 'MIDEA | Arca 142L', price: 195000 },
+  { name: 'MIDEA | AC SPLIT 9000Btu', price: 270500 },
+  { name: 'CLEA | Máquina de Pipoca', price: 20400 },
+  { name: 'Black + Decker | Air Fryer 4.5L', price: 97200 },
+  { name: 'Black + Decker | Picador de Alimentos', price: 34700 },
+  { name: 'ALMOFADA AREIA GRAVADA 45X45', price: 18745 },
+  { name: 'ALMOFADA COSTA DE LINHO 45X45', price: 14995 },
+  { name: 'BALDE CHAMPANHE INOX 184.99', price: 42900 },
+  { name: 'CAIXA CHAS ACACIA VIDRO 26,5X9X9 NATURAL', price: 24900 },
+  { name: 'DECANTADOR VIDRO 18,7X18,7X22 1200ML', price: 22900 },
+  { name: 'Aspirador sem saco 600W 2.4L preto', price: 325965 },
+  { name: 'TV 65" A PRO 2025', price: 925840 },
+  { name: 'Barra de Som Stage Air V2 2.0 Preto', price: 57135 },
+  { name: 'Balança WC MI smart S400', price: 29755 },
+  { name: 'Batedeira 375w Com Taça De 3L Branco', price: 78450 },
+  { name: 'Impressora Deskjet E-AIO 2976 ADV. (7.5) WIFI', price: 61815 },
+  { name: 'Arca Vertical 151L Branca', price: 320990 },
+  { name: 'Ar Condicionado 12000 Btu Split Inverter (In+Out)', price: 390990 },
+  { name: 'Frois', price: 32900 },
+  { name: 'Chaudry', price: 23800 },
+  { name: 'Neres', price: 36000 }
+]
+
+function formatKz(value) {
+  return `Kz ${value.toLocaleString('pt-PT')}`
+}
+
+function buildGiftImage(label) {
+  const shortLabel = label.length > 24 ? `${label.slice(0, 24)}...` : label
+  const svg = `<svg xmlns='http://www.w3.org/2000/svg' width='600' height='600'><defs><linearGradient id='g' x1='0' x2='1' y1='0' y2='1'><stop offset='0%' stop-color='#efe7e6'/><stop offset='100%' stop-color='#d8c3bf'/></linearGradient></defs><rect fill='url(#g)' width='100%' height='100%'/><text x='50%' y='50%' dominant-baseline='middle' text-anchor='middle' font-size='34' font-family='Arial' fill='#6a5f5e'>${shortLabel}</text></svg>`
+  return `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`
+}
+
+function renderGiftList() {
+  if (!giftListGrid) return
+
+  giftListGrid.innerHTML = giftProducts.map((item, index) => `
+    <article class="gift-card">
+      <img class="gift-card-image" src="${buildGiftImage(item.name)}" alt="${item.name}">
+      <h3>${item.name}</h3>
+      <p class="gift-card-price">${formatKz(item.price)}</p>
+      <button class="gift-offer-btn" data-gift-index="${index}" type="button">Oferecer Presente</button>
+    </article>
+  `).join('')
+}
+
+function openGiftModal(item) {
+  if (!giftModalOverlay || !giftModalProduct) return
+  giftModalProduct.innerHTML = `
+    <img src="${buildGiftImage(item.name)}" alt="${item.name}">
+    <div>
+      <h4>${item.name}</h4>
+      <p><strong>Valor:</strong> ${formatKz(item.price)}</p>
+      <p>Após a transferência, envie o comprovativo em PDF.</p>
+    </div>
+  `
+
+  giftModalOverlay.classList.add('show')
+  giftModalOverlay.setAttribute('aria-hidden', 'false')
+}
+
+function closeGiftModal() {
+  if (!giftModalOverlay) return
+  giftModalOverlay.classList.remove('show')
+  giftModalOverlay.setAttribute('aria-hidden', 'true')
+  if (giftProofForm) giftProofForm.reset()
+  if (giftProofFeedback) giftProofFeedback.textContent = ''
+}
+
+renderGiftList()
+
+if (giftListGrid) {
+  giftListGrid.addEventListener('click', event => {
+    const button = event.target.closest('.gift-offer-btn')
+    if (!button) return
+
+    const giftIndex = Number(button.dataset.giftIndex)
+    const selectedGift = giftProducts[giftIndex]
+    if (selectedGift) {
+      openGiftModal(selectedGift)
+    }
+  })
+}
+
+if (giftModalClose) {
+  giftModalClose.addEventListener('click', closeGiftModal)
+}
+
+if (giftModalOverlay) {
+  giftModalOverlay.addEventListener('click', event => {
+    if (event.target === giftModalOverlay) {
+      closeGiftModal()
+    }
+  })
+}
+
+window.addEventListener('keydown', event => {
+  if (event.key === 'Escape' && giftModalOverlay && giftModalOverlay.classList.contains('show')) {
+    closeGiftModal()
+  }
+})
+
+if (giftProofForm) {
+  giftProofForm.addEventListener('submit', event => {
+    event.preventDefault()
+    if (!giftProofFeedback) return
+    if (!giftProofInput || !giftProofInput.files || !giftProofInput.files.length) {
+      giftProofFeedback.textContent = 'Selecione um PDF antes de enviar.'
+      return
+    }
+
+    const file = giftProofInput.files[0]
+    const maxSize = 1024 * 1024
+    const isPdf = file.type === 'application/pdf' || file.name.toLowerCase().endsWith('.pdf')
+
+    if (!isPdf) {
+      giftProofFeedback.textContent = 'Formato inválido. Envie apenas ficheiro PDF.'
+      return
+    }
+
+    if (file.size > maxSize) {
+      giftProofFeedback.textContent = 'O PDF deve ter menos de 1MB.'
+      return
+    }
+
+    giftProofFeedback.style.color = '#4e8a59'
+    giftProofFeedback.textContent = 'Comprovativo enviado com sucesso!'
+    setTimeout(() => {
+      giftProofFeedback.style.color = '#b64949'
+      closeGiftModal()
+    }, 1200)
+  })
+}
