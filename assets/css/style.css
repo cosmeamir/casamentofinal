@@ -93,7 +93,7 @@ header{
 .navbar-logo span {
     font-size: 3.5rem;
     font-weight: bold;
-    color: #9e0e09;
+    color: #70A076;
     font-family: "MADE Soulmaze";
 }
 .menu {
@@ -173,7 +173,7 @@ header{
     border: none;
 }
 .nav-link:hover {
-    color: #9e0e09;
+    color: #dfeadf;
 }
 
 .fade {
@@ -1157,7 +1157,7 @@ transition: all 300ms ease-in-out;
 /* ...Lista de Presentes... */
 .gift-list-section{
   width: 100%;
-  background: #f5efee;
+  background: #f3f7f3;
   padding: 80px 20px;
 }
 .gift-list-container{
@@ -1182,7 +1182,7 @@ transition: all 300ms ease-in-out;
 }
 .gift-submit-btn{
   border: none;
-  background: #d0ada6;
+  background: #70A076;
   color: #fff;
   border-radius: 999px;
   font-size: 1rem;
@@ -1199,8 +1199,8 @@ transition: all 300ms ease-in-out;
   gap: 10px;
   max-width: 640px;
   margin: 0 auto;
-  background: #f2eceb;
-  border: 1px solid #e6dedd;
+  background: #ffffff;
+  border: 1px solid #d8e6d9;
   border-radius: 16px;
   padding: 20px;
 }
@@ -1211,7 +1211,7 @@ transition: all 300ms ease-in-out;
 }
 #sender-name,
 #sender-message{
-  border: 1px solid #ddd1cf;
+  border: 1px solid #c8d9c9;
   border-radius: 8px;
   padding: 10px;
   color: #5f5655;
@@ -1219,7 +1219,7 @@ transition: all 300ms ease-in-out;
 }
 #message-feedback{
   min-height: 18px;
-  color: #b64949;
+  color: #5f5655;
 }
 @media (max-width: 576px){
   .gift-list-section{
@@ -1393,7 +1393,7 @@ transition: all 300ms ease-in-out;
   margin-left: 1.9rem;
 }
 .fa-heart{
-  color: #9e0e09;
+  color: #70A076;
   font-size: 10px;
 }
 
@@ -1417,7 +1417,7 @@ transition: all 300ms ease-in-out;
   background-size: cover;
   background-image: url(../images/Capture.JPG);
   background-position: center center;
-  border-top: 5px solid rgb(204, 68, 0);
+  border-top: 5px solid #70A076;
   background-size: cover;
   background-repeat: no-repeat;
   display: none;
@@ -1483,7 +1483,7 @@ transition: all 300ms ease-in-out;
   width: 90%;
 }
 .progress {
-  background: rgb(204, 68, 0);
+  background: #70A076;
   border-radius: 5px;
   height: 100%;
   width: 0%;
@@ -1501,7 +1501,7 @@ transition: all 300ms ease-in-out;
   text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
 }
 #play{
-  color: rgb(204, 68, 0);
+  color: #70A076;
 }
 .fas {
   font-size: 30px;
