@@ -543,9 +543,23 @@ const defaultGiftProducts = [
   { name: 'Neres', price: 36000, behavior: 'link', image: 'assets/images/gifts/gift-2.svg' }
 ]
 
-const giftProducts = Array.isArray(window.giftProductsConfig) && window.giftProductsConfig.length
+const normalizeGiftProduct = product => {
+  const siteUrl = String(product.siteUrl || product.url || product.link || '').trim()
+  const behaviorRaw = String(product.behavior || '').trim().toLowerCase()
+  const behavior = behaviorRaw === 'link' || (!behaviorRaw && siteUrl) ? 'link' : 'popup'
+
+  return {
+    ...product,
+    behavior,
+    siteUrl
+  }
+}
+
+const giftProductsSource = Array.isArray(window.giftProductsConfig) && window.giftProductsConfig.length
   ? window.giftProductsConfig
   : defaultGiftProducts
+
+const giftProducts = giftProductsSource.map(normalizeGiftProduct)
 
 const formatGiftPrice = value => `${Number(value).toLocaleString('pt-PT')} Kz`
 const escapeAttr = value => String(value).replace(/"/g, '&quot;')
@@ -577,11 +591,12 @@ if (giftShopGrid && giftModalOverlay && giftModalProduct) {
   giftShopGrid.addEventListener('click', event => {
     const button = event.target.closest('.gift-offer-btn')
     if (!button) return
-    const behavior = button.dataset.behavior || 'popup'
+    const behavior = String(button.dataset.behavior || 'popup').trim().toLowerCase()
 
     if (behavior === 'link') {
       const productName = button.dataset.product || ''
-      const url = button.dataset.url || `https://www.google.com/search?q=${encodeURIComponent(productName)}`
+      const configuredUrl = String(button.dataset.url || '').trim()
+      const url = configuredUrl || `https://www.google.com/search?q=${encodeURIComponent(productName)}`
       window.open(url, '_blank')
       return
     }
