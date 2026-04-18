@@ -505,28 +505,42 @@ const giftProofInput = $.getElementById('gift-proof')
 const giftProofFeedback = $.getElementById('gift-proof-feedback')
 const giftSenderNameInput = $.getElementById('gift-sender-name')
 const defaultGiftProducts = [
-  { name: 'SAMSUNG | Crystal UHD 55', price: 642400 , image: 'assets/images/gifts/gift-1.svg' },
-  { name: 'MIDEA | Arca 142L', price: 195000 , image: 'assets/images/gifts/gift-2.svg' },
-  { name: 'MIDEA | AC SPLIT 9000Btu', price: 270500 , image: 'assets/images/gifts/gift-3.svg' },
-  { name: 'CLEA | Máquina de Pipoca', price: 20400 , image: 'assets/images/gifts/gift-4.svg' },
-  { name: 'Black + Decker | Air Fryer 4.5L', price: 97200 , image: 'assets/images/gifts/gift-5.svg' },
-  { name: 'Black + Decker | Picador de Alimentos', price: 34700 , image: 'assets/images/gifts/gift-6.svg' },
-  { name: 'ALMOFADA AREIA GRAVADA 45X45', price: 18745 , image: 'assets/images/gifts/gift-7.svg' },
-  { name: 'ALMOFADA COSTA DE LINHO 45X45', price: 14995 , image: 'assets/images/gifts/gift-8.svg' },
-  { name: 'BALDE CHAMPANHE INOX 184.99', price: 42900 , image: 'assets/images/gifts/gift-9.svg' },
-  { name: 'CAIXA CHAS ACACIA VIDRO 26,5X9X9 NATURAL', price: 24900 , image: 'assets/images/gifts/gift-10.svg' },
-  { name: 'DECANTADOR VIDRO 18,7X18,7X22 1200ML', price: 22900 , image: 'assets/images/gifts/gift-1.svg' },
-  { name: 'Aspirador sem saco 600w 2.4l preto', price: 325965 , image: 'assets/images/gifts/gift-2.svg' },
-  { name: 'TV 65" A PRO 2025', price: 925840 , image: 'assets/images/gifts/gift-3.svg' },
-  { name: 'Barra de Som Stage Air V2 2.0 Preto', price: 57135 , image: 'assets/images/gifts/gift-4.svg' },
-  { name: 'Balança WC MI smart S400', price: 29755 , image: 'assets/images/gifts/gift-5.svg' },
-  { name: 'Batedeira 375w Com Taça De 3L Branco', price: 78450 , image: 'assets/images/gifts/gift-6.svg' },
-  { name: 'Impressora Deskjet E-AIO 2976 ADV. (7.5) WIFI', price: 61815 , image: 'assets/images/gifts/gift-7.svg' },
-  { name: 'Arca Vertical 151L Branca', price: 209990 , image: 'assets/images/gifts/gift-8.svg' },
-  { name: 'Ar Condicionado 12000 Btu Split Inverter (In+Out)', price: 390990 , image: 'assets/images/gifts/gift-9.svg' },
-  { name: 'Frois', price: 32900 , image: 'assets/images/gifts/gift-10.svg' },
-  { name: 'Chaudry', price: 23800 , image: 'assets/images/gifts/gift-1.svg' },
-  { name: 'Neres', price: 36000 , image: 'assets/images/gifts/gift-2.svg' }
+
+
+
+  { name: 'Exaustor telescópico, 60 cm', price: 291000, behavior: 'popup', image: 'assets/images/gifts/gift-1.svg' },
+  { name: 'Placa a gás, 60 cm, Inox', price: 475000, behavior: 'popup', image: 'assets/images/gifts/gift-2.svg' },
+  { name: 'Forno integrável, 60 x 60', price: 665000, behavior: 'popup', image: 'assets/images/gifts/gift-3.svg' },
+  { name: 'Micro-ondas integrável', price: 484000, behavior: 'popup', image: 'assets/images/gifts/gift-4.svg' },
+  { name: 'Congelador de instalação', price: 2087000, behavior: 'popup', image: 'assets/images/gifts/gift-5.svg' },
+  { name: 'Frigorífico de instalação', price: 2087000, behavior: 'popup', image: 'assets/images/gifts/gift-6.svg' },
+  { name: 'Máquina de Lavar Loiça', price: 957000, behavior: 'popup', image: 'assets/images/gifts/gift-7.svg' },
+  { name: 'Máquina de Lavar Roupa', price: 957000, behavior: 'popup', image: 'assets/images/gifts/gift-8.svg' },
+  { name: 'Moinho de café, Preto', price: 181870, behavior: 'popup', image: 'assets/images/gifts/gift-9.svg' },
+  { name: 'Serie 6, Liquidificador', price: 541000, behavior: 'popup', image: 'assets/images/gifts/gift-10.svg' },
+
+  { name: 'SAMSUNG | Crystal UHD 55', price: 642400, behavior: 'link', image: 'assets/images/gifts/gift-1.svg' },
+  { name: 'MIDEA | Arca 142L', price: 195000, behavior: 'link', image: 'assets/images/gifts/gift-2.svg' },
+  { name: 'MIDEA | AC SPLIT 9000Btu', price: 270500, behavior: 'link', image: 'assets/images/gifts/gift-3.svg' },
+  { name: 'CLEA | Máquina de Pipoca', price: 20400, behavior: 'link', image: 'assets/images/gifts/gift-4.svg' },
+  { name: 'Black + Decker | Air Fryer 4.5L', price: 97200, behavior: 'link', image: 'assets/images/gifts/gift-5.svg' },
+  { name: 'Black + Decker | Picador de Alimentos', price: 34700, behavior: 'link', image: 'assets/images/gifts/gift-6.svg' },
+  { name: 'ALMOFADA AREIA GRAVADA 45X45', price: 18745, behavior: 'link', image: 'assets/images/gifts/gift-7.svg' },
+  { name: 'ALMOFADA COSTA DE LINHO 45X45', price: 14995, behavior: 'link', image: 'assets/images/gifts/gift-8.svg' },
+  { name: 'BALDE CHAMPANHE INOX 184.99', price: 42900, behavior: 'link', image: 'assets/images/gifts/gift-9.svg' },
+  { name: 'CAIXA CHAS ACACIA VIDRO 26,5X9X9 NATURAL', price: 24900, behavior: 'link', image: 'assets/images/gifts/gift-10.svg' },
+  { name: 'DECANTADOR VIDRO 18,7X18,7X22 1200ML', price: 22900, behavior: 'link', image: 'assets/images/gifts/gift-1.svg' },
+  { name: 'Aspirador sem saco 600w 2.4l preto', price: 325965, behavior: 'link', image: 'assets/images/gifts/gift-2.svg' },
+  { name: 'TV 65" A PRO 2025', price: 925840, behavior: 'link', image: 'assets/images/gifts/gift-3.svg' },
+  { name: 'Barra de Som Stage Air V2 2.0 Preto', price: 57135, behavior: 'link', image: 'assets/images/gifts/gift-4.svg' },
+  { name: 'Balança WC MI smart S400', price: 29755, behavior: 'link', image: 'assets/images/gifts/gift-5.svg' },
+  { name: 'Batedeira 375w Com Taça De 3L Branco', price: 78450, behavior: 'link', image: 'assets/images/gifts/gift-6.svg' },
+  { name: 'Impressora Deskjet E-AIO 2976 ADV. (7.5) WIFI', price: 61815, behavior: 'link', image: 'assets/images/gifts/gift-7.svg' },
+  { name: 'Arca Vertical 151L Branca', price: 320990, behavior: 'link', image: 'assets/images/gifts/gift-8.svg' },
+  { name: 'Ar Condicionado 12000 Btu Split Inverter (In+Out)', price: 390990, behavior: 'link', image: 'assets/images/gifts/gift-9.svg' },
+  { name: 'Frois', price: 32900, behavior: 'link', image: 'assets/images/gifts/gift-10.svg' },
+  { name: 'Chaudry', price: 23800, behavior: 'link', image: 'assets/images/gifts/gift-1.svg' },
+  { name: 'Neres', price: 36000, behavior: 'link', image: 'assets/images/gifts/gift-2.svg' }
 ]
 
 const giftProducts = Array.isArray(window.giftProductsConfig) && window.giftProductsConfig.length
@@ -537,16 +551,19 @@ const formatGiftPrice = value => `${Number(value).toLocaleString('pt-PT')} Kz`
 const escapeAttr = value => String(value).replace(/"/g, '&quot;')
 
 if (giftShopGrid) {
-  const cardsMarkup = giftProducts.map((product, index) => `
+  const cardsMarkup = giftProducts.map((product, index) => {
+    const buttonLabel = product.behavior === 'link' ? 'Ver no site' : 'Oferecer Presente'
+    return `
     <article class="gift-shop-card">
       <img src="${escapeAttr(product.image || `assets/images/gifts/gift-${(index % 10) + 1}.svg`)}" alt="${escapeAttr(product.name)}">
       <div class="gift-shop-info">
         <h3>${product.name}</h3>
         <p class="gift-price">${formatGiftPrice(product.price)}</p>
-        <button type="button" class="gift-offer-btn" data-product="${escapeAttr(product.name)}" data-price="${formatGiftPrice(product.price)}">Oferecer Presente</button>
+        <button type="button" class="gift-offer-btn" data-behavior="${escapeAttr(product.behavior || 'popup')}" data-product="${escapeAttr(product.name)}" data-price="${formatGiftPrice(product.price)}" data-url="${escapeAttr(product.siteUrl || '')}">${buttonLabel}</button>
       </div>
     </article>
-  `).join('')
+  `
+  }).join('')
   giftShopGrid.innerHTML = cardsMarkup
 }
 
@@ -560,6 +577,15 @@ if (giftShopGrid && giftModalOverlay && giftModalProduct) {
   giftShopGrid.addEventListener('click', event => {
     const button = event.target.closest('.gift-offer-btn')
     if (!button) return
+    const behavior = button.dataset.behavior || 'popup'
+
+    if (behavior === 'link') {
+      const productName = button.dataset.product || ''
+      const url = button.dataset.url || `https://www.google.com/search?q=${encodeURIComponent(productName)}`
+      window.open(url, '_blank')
+      return
+    }
+
     const product = button.dataset.product || 'Presente'
     const price = button.dataset.price || ''
     giftModalProduct.innerHTML = `<p><strong>Produto:</strong> ${product}</p><p><strong>Valor:</strong> ${price}</p>`
